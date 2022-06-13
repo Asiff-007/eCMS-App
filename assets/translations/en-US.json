@@ -1,0 +1,21 @@
+{
+    "login_success":"Login successful",
+    "login_button":"Login",
+    "logout_button":"Logout",
+
+    "alert":"Alert",
+    "alert_exit":"Do you want to exit",
+    "alert_ok":"Ok",
+    "alert_cancel":"Cancel",
+    "appbar_login":"Login",
+
+    "label_username":"Username",
+    "label_password":"Password",
+
+    "hint_username":"Enter valid username",
+    "hint_password":"Enter valid password",
+
+    "validation_password":"Please enter password",
+    "validation_username":"Please enter username"
+
+}
