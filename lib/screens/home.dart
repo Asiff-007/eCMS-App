@@ -1,4 +1,5 @@
-import 'package:ecms/screens/chart.dart';
+import 'package:ecms/screens/bar_chart.dart';
+import 'package:ecms/screens/pi_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,7 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   bool shouldpop = false;
 
   Future onBackPress({ctx}) async {
@@ -42,328 +42,379 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     return WillPopScope(
       onWillPop: () async {
         await onBackPress(ctx: this.context);
         return shouldpop;
       },
       child: Scaffold(
+        extendBody: true,
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Color.fromARGB(255, 15, 31, 255),
-          title: const Text(
-                'Dashboard',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontFamily: 'poppins',
-                    fontWeight: FontWeight.bold),
-              ),
-          actions: const [
+          backgroundColor: const Color.fromARGB(255, 15, 31, 255),
+          title: Text(
+            'Dashboard',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: width*.075,
+                fontFamily: 'poppins',
+                fontWeight: FontWeight.bold),
+          ),
+          actions: [
             Padding(
-              padding: EdgeInsets.only(right: 10),
-              child: Icon(Icons.search,size: 30,),
+              padding: EdgeInsets.only(right: width*.03),
+              child: Icon(
+                Icons.search,
+                size: width*.08,
+              ),
             )
           ],
         ),
         floatingActionButton: FloatingActionButton(
             backgroundColor: const Color(0xff38b5ed),
-            child: const Icon(
-              Icons.add,
-              size: 30,
+            child: Icon(
+              Icons.menu,
+              size: width*.09,
             ),
             onPressed: () {}),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(
           shape: const CircularNotchedRectangle(),
-          notchMargin: 8,
-          child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          notchMargin: width*.025,
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             IconButton(
                 icon: const Icon(Icons.info_outline),
-                iconSize: 30,
+                iconSize: width*.085,
                 color: const Color(0xffbcc0cb),
                 onPressed: () {}),
-            const SizedBox(
-              width: 40,
+            SizedBox(
+              width: width*.1,
             ),
             IconButton(
                 icon: const Icon(Icons.mail_outline_outlined),
-                iconSize: 30,
+                iconSize: width*.085,
                 color: const Color(0xffbcc0cb),
                 onPressed: () {}),
-            const SizedBox(
-              width: 85,
+            SizedBox(
+              width: width*.25,
             ),
             IconButton(
                 icon: const Icon(Icons.notifications_none),
-                iconSize: 30,
+                iconSize: width*.085,
                 color: const Color(0xffbcc0cb),
                 onPressed: () {}),
-            const SizedBox(
-              width: 40,
+            SizedBox(
+              width: width*.1,
             ),
             IconButton(
                 icon: const Icon(Icons.power_settings_new),
-                iconSize: 30,
+                iconSize: width*.085,
                 color: const Color(0xffbcc0cb),
                 onPressed: () {}),
           ]),
         ),
         body: SingleChildScrollView(
           child: Container(
-            height: 1000,
+            height: height * 1.2,
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  tileMode: TileMode.clamp,
-                    colors: [Color.fromARGB(255, 79, 91, 253), Colors.white],
+                    tileMode: TileMode.clamp,
+                    colors: [
+                      Color.fromARGB(255, 79, 91, 253),
+                      Colors.white,
+                      Colors.white,
+                      Color.fromARGB(255, 79, 91, 253)
+                    ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    stops: [0.35, 0.35])),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const SizedBox(
-                height: 20,
+                    stops: [0.33, 0.33, .60, .60])),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              SizedBox(
+                height: height * .03,
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 20, bottom: 40),
+              Padding(
+                padding:
+                    EdgeInsets.only(left: width * .05, bottom: height * .06),
                 child: Text(
                   'Students Attendance',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18,
+                      fontSize: width*.05,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 50, left: 160),
-                child: PieChartSample2(),
+              Padding(
+                padding: EdgeInsets.only(top: height * .08, left: width * .45),
+                child: const PieChartSample2(),
               ),
-              const SizedBox(
-                height: 100,
+              SizedBox(
+                height: height * .11,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
+                padding:
+                    EdgeInsets.only(left: height * .01, right: height * .01),
                 child: GridView.count(
+                  padding: EdgeInsets.only(
+                      left: width * .02,
+                      right: width * .02,
+                      bottom: height * .02),
                   physics: const NeverScrollableScrollPhysics(),
                   crossAxisSpacing: 8,
-                  childAspectRatio: .93,
+                  childAspectRatio: height * .0013,
                   mainAxisSpacing: 8,
                   shrinkWrap: true,
                   crossAxisCount: 2,
                   children: [
-                    Card(
-                      shape: RoundedRectangleBorder(
+                    Container(
+                      margin: EdgeInsets.all(height * .009),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Color.fromARGB(255, 196, 192, 192),
+                                blurRadius: 6,
+                                spreadRadius: 0)
+                          ],
                           borderRadius: BorderRadius.circular(15)),
-                      color: Colors.white,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(15.0),
+                              padding: EdgeInsets.all(width * .035),
                               child: Container(
-                                  height: 50,
-                                  width: 50,
+                                  height: height*.07,
+                                  width: width*.14,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: Border.all(
                                           color: Colors.amber, width: 3)),
-                                  child: const Center(
+                                  child: Center(
                                       child: FaIcon(
                                     FontAwesomeIcons.graduationCap,
                                     color: Colors.amber,
-                                    size: 20,
+                                    size: width*.05,
                                   ))),
                             ),
-                            const SizedBox(
-                              height: 25,
+                            SizedBox(
+                              height: height * .028,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 13),
+                            Padding(
+                              padding: EdgeInsets.only(left: width * .035),
                               child: Text(
                                 'Students',
                                 style: TextStyle(
                                     fontFamily: 'poppins',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                    fontSize: width*.045,
                                     letterSpacing: 1),
                               ),
                             ),
-                            const SizedBox(
-                              height: 1,
+                            SizedBox(
+                              height: height*.001,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 13),
+                            Padding(
+                              padding: EdgeInsets.only(left: width * .035),
                               child: Text(
                                 '237',
                                 style: TextStyle(
                                     fontFamily: 'poppins',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15,
+                                    fontSize: width*.042,
                                     letterSpacing: 1,
-                                    color: Color(0xffbcc0cb)),
+                                    color: const Color(0xffbcc0cb)),
                               ),
                             )
                           ]),
                     ),
-                    Card(
-                      shape: RoundedRectangleBorder(
+                    Container(
+                      margin: EdgeInsets.all(height * .009),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Color.fromARGB(255, 196, 192, 192),
+                                blurRadius: 6,
+                                spreadRadius: 0)
+                          ],
                           borderRadius: BorderRadius.circular(15)),
-                      color: Colors.white,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(15.0),
+                              padding: EdgeInsets.all(width * .035),
                               child: Container(
-                                  height: 50,
-                                  width: 50,
+                                  height: height*.07,
+                                  width: width*.14,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: Border.all(
-                                          color: const Color.fromARGB(255, 24, 202, 39),
+                                          color: const Color.fromARGB(
+                                              255, 24, 202, 39),
                                           width: 3)),
                                   child: const Center(
                                       child: FaIcon(
                                     FontAwesomeIcons.moneyBill,
                                     color: Color.fromARGB(255, 24, 202, 39),
-                                    size: 20,
+                                    size: 18,
                                   ))),
                             ),
-                            const SizedBox(
-                              height: 25,
+                            SizedBox(
+                              height: height * .028,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 13),
+                            Padding(
+                              padding: EdgeInsets.only(left: width * .035),
                               child: Text(
                                 'Fees',
                                 style: TextStyle(
                                     fontFamily: 'poppins',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                    fontSize: width*.045,
                                     letterSpacing: 1),
                               ),
                             ),
-                            const SizedBox(
-                              height: 1,
+                            SizedBox(
+                              height: height*.001,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 13),
+                            Padding(
+                              padding: EdgeInsets.only(left: width * .035),
                               child: Text(
                                 '\$' '2400,50',
                                 style: TextStyle(
                                     fontFamily: 'poppins',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15,
+                                    fontSize: width*.042,
                                     letterSpacing: 1,
-                                    color: Color(0xffbcc0cb)),
+                                    color: const Color(0xffbcc0cb)),
                               ),
                             )
                           ]),
                     ),
-                    Card(
-                      shape: RoundedRectangleBorder(
+                    Container(
+                      margin: EdgeInsets.all(height * .009),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Color.fromARGB(255, 196, 192, 192),
+                                blurRadius: 6,
+                                spreadRadius: 0)
+                          ],
                           borderRadius: BorderRadius.circular(15)),
-                      color: Colors.white,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(15.0),
+                              padding: EdgeInsets.all(width * .035),
                               child: Container(
-                                  height: 50,
-                                  width: 50,
+                                  height: height*.07,
+                                  width: width*.14,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: Border.all(
-                                          color: const Color.fromARGB(255, 79, 91, 253),
+                                          color: const Color.fromARGB(
+                                              255, 79, 91, 253),
                                           width: 3)),
                                   child: const Center(
                                       child: FaIcon(
                                     FontAwesomeIcons.suitcase,
                                     color: Color.fromARGB(255, 79, 91, 253),
-                                    size: 20,
+                                    size: 18,
                                   ))),
                             ),
-                            const SizedBox(
-                              height: 25,
+                            SizedBox(
+                              height: height * .028,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 13),
+                            Padding(
+                              padding: EdgeInsets.only(left: width * .035),
                               child: Text(
                                 'Collection',
                                 style: TextStyle(
                                     fontFamily: 'poppins',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                    fontSize: width*.045,
                                     letterSpacing: 1),
                               ),
                             ),
-                            const SizedBox(
-                              height: 1,
+                            SizedBox(
+                              height: height*.001,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 13),
+                            Padding(
+                              padding: EdgeInsets.only(left: width * .035),
                               child: Text(
                                 '237',
                                 style: TextStyle(
                                     fontFamily: 'poppins',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15,
+                                    fontSize: width*.042,
                                     letterSpacing: 1,
                                     color: Color(0xffbcc0cb)),
                               ),
                             )
                           ]),
                     ),
-                    Card(
-                      shape: RoundedRectangleBorder(
+                    Container(
+                      margin: EdgeInsets.all(height * .009),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Color.fromARGB(255, 196, 192, 192),
+                                blurRadius: 6,
+                                spreadRadius: 0)
+                          ],
                           borderRadius: BorderRadius.circular(15)),
-                      color: Colors.white,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(15.0),
+                              padding: EdgeInsets.all(width * .035),
                               child: Container(
-                                  height: 50,
-                                  width: 50,
+                                  height: height*.07,
+                                  width: width*.14,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: Border.all(
-                                          color: const Color.fromARGB(255, 255, 7, 7),
+                                          color: const Color.fromARGB(
+                                              255, 255, 7, 7),
                                           width: 3)),
                                   child: const Center(
                                       child: FaIcon(
                                     FontAwesomeIcons.dollarSign,
                                     color: Color.fromARGB(255, 255, 7, 7),
-                                    size: 20,
+                                    size: 18,
                                   ))),
                             ),
-                            const SizedBox(
-                              height: 25,
+                            SizedBox(
+                              height: height * .028,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 13),
+                            Padding(
+                              padding: EdgeInsets.only(left: width * .035),
                               child: Text(
                                 'Disc./Refund',
                                 style: TextStyle(
                                     fontFamily: 'poppins',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                    fontSize: width*.045,
                                     letterSpacing: 1),
                               ),
                             ),
-                            const SizedBox(
-                              height: 1,
+                            SizedBox(
+                              height: height*.001,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 13),
+                            Padding(
+                              padding: EdgeInsets.only(left: width * .035),
                               child: Text(
                                 '\$' '2400,50',
                                 style: TextStyle(
                                     fontFamily: 'poppins',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15,
+                                    fontSize: width*.042,
                                     letterSpacing: 1,
                                     color: Color(0xffbcc0cb)),
                               ),
@@ -372,7 +423,23 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-              )
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: width * .1, top: height * .01, bottom: width * .1),
+                child: Text(
+                  'Fee status',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: width*.05,
+                      fontFamily: 'poppins',
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: width * .1, right: width * .1),
+                child: const BarChartSample7(),
+              ),
             ]),
           ),
         ),

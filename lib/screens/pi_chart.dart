@@ -13,58 +13,61 @@ class PieChart2State extends State {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    
     return Container(
-      height: 10,
-      width: 30,
+      height: height * .012,
+      width: width * .085,
       child: PieChart(
         PieChartData(
             borderData: FlBorderData(
               show: false,
             ),
-            sectionsSpace: 5,
-            centerSpaceRadius: 30,
-            sections: showingSections()),
+            sectionsSpace: width * .02,
+            centerSpaceRadius: width *.09,
+            sections: showingSections(width)),
       ),
     );
   }
 
-  List<PieChartSectionData> showingSections() {
+  List<PieChartSectionData> showingSections(double width) {
     return List.generate(3, (i) {
-      const fontSize = 14.0;
-      const radius = 30.0;
+      double fontSize = width*.042;
+      double radius = width*.085;
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: const Color(0xff0293ee),
-            value: 45,
-            title: 'Late',
-            titlePositionPercentageOffset: 1.9,
+            color: Color.fromARGB(255, 48, 170, 245),
+            value: 10,
+            title: 'Absent',
+            titlePositionPercentageOffset: width * .0052,
             radius: radius,
-            titleStyle: const TextStyle(
+            titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
                 color: Color(0xffbcc0cb)),
           );
         case 1:
           return PieChartSectionData(
-            color: const Color(0xfff8b250),
-            value: 35,
+            color: Color.fromARGB(255, 53, 207, 112),
+            value: 70,
             title: 'present',
-            titlePositionPercentageOffset: 1.9,
+            titlePositionPercentageOffset: width * .0052,
             radius: radius,
-            titleStyle: const TextStyle(
+            titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
                 color: Color(0xffbcc0cb)),
           );
         case 2:
           return PieChartSectionData(
-            color: const Color(0xff845bef),
+            color: Color.fromARGB(255, 252, 191, 106),
             value: 20,
-            title: 'Absent',
-            titlePositionPercentageOffset: 1.9,
+            title: 'Late',
+            titlePositionPercentageOffset: width * .0052,
             radius: radius,
-            titleStyle: const TextStyle(
+            titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
                 color: Color(0xffbcc0cb)),

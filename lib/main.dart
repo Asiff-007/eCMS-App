@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecms/screens/home.dart';
 import 'package:ecms/screens/login.dart';
+import 'package:ecms/screens/menu.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
