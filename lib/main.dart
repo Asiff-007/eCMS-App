@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      initialRoute: '/login', routes: {
+      initialRoute: '/home', routes: {
         '/login': (context) => LoginPage(),
         '/home': (context) => HomePage(),
       }
